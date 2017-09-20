@@ -1,0 +1,44 @@
+CHAINPORT=""
+CHAINNAME=""
+
+function usage()
+{
+    echo "USAGE:"
+    echo "./run --port=6602 --name=chain001"
+    echo ""
+}
+
+if [ $# -eq 0 ]
+  then
+    usage
+    exit
+fi
+
+while [ "$1" != "" ]; do
+    PARAM=`echo $1 | awk -F= '{print $1}'`
+    VALUE=`echo $1 | awk -F= '{print $2}'`
+    case $PARAM in
+        -h | --help)
+            usage
+            exit
+            ;;
+        --name)
+            CHAINNAME=$VALUE
+            ;;
+        --port)
+            CHAINPORT=$VALUE
+            ;;
+        *)
+            echo "ERROR: unknown parameter \"$PARAM\""
+            usage
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+CHAINDIR="$(pwd)/temp"
+
+echo "Chain port: $CHAINPORT"
+echo "Chain name: $CHAINNAME"
+echo "Chain directory: $CHAINDIR"

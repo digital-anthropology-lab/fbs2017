@@ -1,3 +1,7 @@
+# MutliChain
+scripts/temp/
+webpack/
+
 # Logs
 logs
 *.log
@@ -56,4 +60,3 @@ typings/
 
 # dotenv environment variables file
 .env
-

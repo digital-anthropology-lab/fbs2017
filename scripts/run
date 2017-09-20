@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Set variables
+DIR="$(dirname "$0")"
+. "$DIR/common" "$@"
+
+# Make dir if doesn't exist
+if [ ! -d "$CHAINDIR" ]; then
+  echo "Making chain directory: $CHAINDIR"
+  mkdir $CHAINDIR
+fi
+
+# Create chain if doesn't exist
+if [ ! -d "$CHAINDIR/$CHAINNAME" ]
+then
+  echo "Chain with name $CHAINNAME doesn't exist. Creating..."
+  multichain-util create $CHAINNAME --datadir=$CHAINDIR
+else
+  echo "Chain with name $CHAINNAME already exists. Starting deamon..."
+fi
+
+# Start the daemon
+multichaind $CHAINNAME --datadir=$CHAINDIR --rpcuser=$CHAINNAME --rpcpassword=$CHAINNAME --rpcport=$CHAINPORT --sendfreetransactions --reindex=1

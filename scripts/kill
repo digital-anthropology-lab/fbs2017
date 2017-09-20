@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Set variables
+DIR="$(dirname "$0")"
+. "$DIR/common" "$@"
+
+# Works for macOS
+PID=$(ps -ef | grep "[m]ultichaind chain001" | awk '{print $2}')
+echo $PID
+
+kill -9 $PID
+
+# multichain-cli $CHAINNAME --rpcuser=$CHAINNAME --rpcpassword=$CHAINNAME --rpcport=$CHAINPORT stop
+# rm -rf $CHAINDIR

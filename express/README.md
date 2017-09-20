@@ -16,15 +16,7 @@ Script provided for creating a blockchain instance [based on this](https://githu
 Creates new multichain blockchain instance with RPC port (`--port`) and chain name (`--name`). Sets rpc username and password to `--name`.
 
 ### Node.js/Express app
-Creates web interface using Node.js and Express on the server. Allows for interacting with multichain on server side using RPC calls.
-
-- To start:  
-`cd express && DEBUG=* npm start`
-
-- or to watch and restart on changes:  
-`cd express && nodemon npm start`
-
-- Visit: [http://localhost:3000/]
+Creates web interface using Node.js and Express on the server. Allows for interacting with multichain on server side using RPC calls
 
 ### Dependencies:
 * Node.js (>= v6)

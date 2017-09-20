@@ -1,0 +1,29 @@
+<h1>{{title}}</h1>
+
+<div>
+  {{#each keypair}}
+  <h2>{{address}}</h2>
+  <button data-address="{{address}}" class="js-track-address">Track</button>
+  <dl>
+    <dt>Address</dt>
+    <dd>{{address}}</dd>
+    <dt>Public Key</dt>
+    <dd>{{pubkey}}</dd>
+    <dt>Private Key</dt>
+    <dd>{{privkey}}</dd>
+  </dl>
+  {{/each}}
+</div>
+
+<script type="text/javascript">
+
+  var trackBtn = document.querySelector('.js-track-address');
+  trackBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    console.log(trackBtn.dataset.address);
+    socket.emit('address-track', {
+      address: trackBtn.dataset.address
+    })
+  })
+
+</script>

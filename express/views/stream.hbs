@@ -1,0 +1,19 @@
+<h1>{{title}}</h1>
+
+<div>
+  <ul>
+    {{#each streams}}
+    <li>
+      <dl>
+        <dt>Key</dt>
+        <dd>{{key}}</dd>
+        <dt>Publisher</dt>
+        <dd>{{join publishers}}</dd>
+        <dt>Blocktime</dt>
+        <dd>{{blocktime}}</dd>
+      </dl>
+    </li>
+    {{/each}}
+  </ul>
+
+</div>

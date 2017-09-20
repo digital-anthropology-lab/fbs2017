@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Set variables
+DIR="$(dirname "$0")"
+. "$DIR/common" "$@"
+
+# Start interactive cli to directly interact with blockchain
+multichain-cli $CHAINNAME --datadir=$CHAINDIR --rpcuser=$CHAINNAME --rpcpassword=$CHAINNAME --rpcport=$CHAINPORT
