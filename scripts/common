@@ -1,10 +1,11 @@
 CHAINPORT=""
 CHAINNAME=""
+CHAINHOST=""
 
 function usage()
 {
     echo "USAGE:"
-    echo "./run --port=6602 --name=chain001"
+    echo "./run --port=6602 --name=chain001 --host=10.x.x.x:8123"
     echo ""
 }
 
@@ -25,6 +26,9 @@ while [ "$1" != "" ]; do
         --name)
             CHAINNAME=$VALUE
             ;;
+        --host)
+            CHAINHOST=$VALUE
+            ;;
         --port)
             CHAINPORT=$VALUE
             ;;
@@ -39,6 +43,7 @@ done
 
 CHAINDIR="$(pwd)/temp"
 
-echo "Chain port: $CHAINPORT"
-echo "Chain name: $CHAINNAME"
-echo "Chain directory: $CHAINDIR"
+echo "port: $CHAINPORT"
+echo "name: $CHAINNAME"
+echo "host: $CHAINHOST"
+echo "dir:  $CHAINDIR"

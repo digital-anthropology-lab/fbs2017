@@ -19,5 +19,12 @@ else
   echo "Chain with name $CHAINNAME already exists. Starting deamon..."
 fi
 
+HOST=$CHAINNAME
+if [ ! -z "$CHAINHOST" ]
+then
+  HOST=${CHAINNAME}@${CHAINHOST}
+fi
+
+echo "Host: $HOST"
 # Start the daemon
-multichaind $CHAINNAME --datadir=$CHAINDIR --rpcuser=$CHAINNAME --rpcpassword=$CHAINNAME --rpcport=$CHAINPORT --sendfreetransactions --reindex=1
+multichaind $HOST --datadir=$CHAINDIR --rpcuser=$CHAINNAME --rpcpassword=$CHAINNAME --rpcport=$CHAINPORT --sendfreetransactions
