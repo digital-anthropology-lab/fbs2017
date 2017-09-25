@@ -22,7 +22,7 @@ module.exports = function(io) {
 
   });
 
-  router.get('/new/:name/:qty/:address', function(req, res, next) {
+  router.get('/create/:name/:qty/:address', function(req, res, next) {
 
     // mc.listAssetsPromise()
     //   .then(function(data){

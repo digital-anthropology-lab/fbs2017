@@ -5,6 +5,7 @@ module.exports = function(io) {
   var mc = require('../multichain/index');
 
   var latestBlockHeight = 0;
+  var subscribeList = ['jobs:new']
 
   // io.on('connection', function(socket) {
   //   console.log('connection success')
@@ -21,6 +22,9 @@ module.exports = function(io) {
 
   /* GET home page. */
   router.get('/', function(req, res, next) {
+
+    mc.addStreams();
+
     mc.getInfo(function(err, data){
       res.render('index', { title: data.description, mc : data });
     })

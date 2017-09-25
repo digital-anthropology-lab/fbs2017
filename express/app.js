@@ -44,6 +44,7 @@ app.use('/', routes);
 app.use('/assets', assets);
 app.use('/users', users);
 app.use('/streams', streams);
+app.use('/multi-wallet', multiwallet);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

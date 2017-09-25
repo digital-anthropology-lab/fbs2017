@@ -32,7 +32,7 @@ module.exports = function(io) {
                 from: addresses[0].address,
                 stream: "root",
                 key: "user:tracking",
-                data: new Buffer(`New address tracked ${msg.address}`).toString("hex")
+                data: new Buffer(msg.address).toString("hex")
               })
             })
         })

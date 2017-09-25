@@ -17,6 +17,8 @@ const multichain = Promise.promisifyAll(require("multichain-node")(connection), 
 //   console.log(data)
 // })
 
+
+const subscribeList = ['jobs:new']
 multichain.getLocalChainUsers = () => {
 
   var p1 = multichain.listAddressesPromise();
@@ -33,6 +35,18 @@ multichain.getLocalChainUsers = () => {
       });
       return addresses
     })
+}
+
+multichain.addStreams = () => {
+  multichain.listStreamsPromise().then(function(data){
+    data.forEach(function(item){
+      if(subscribeList.indexOf(item.name) > -1 && item.subscribed == false){
+        multichain.subscribePromise({
+          stream: item.name
+        })
+      }
+    })
+  })
 }
 
 module.exports = multichain;
