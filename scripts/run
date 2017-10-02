@@ -10,13 +10,15 @@ if [ ! -d "$CHAINDIR" ]; then
   mkdir $CHAINDIR
 fi
 
-# Create chain if doesn't exist
-if [ ! -d "$CHAINDIR/$CHAINNAME" ]
+if [ -z "$CHAINHOST" ]
 then
-  echo "Chain with name $CHAINNAME doesn't exist. Creating..."
-  multichain-util create $CHAINNAME --datadir=$CHAINDIR
-else
-  echo "Chain with name $CHAINNAME already exists. Starting deamon..."
+  if [ ! -d "$CHAINDIR/$CHAINNAME" ]
+  then
+    echo "Chain with name $CHAINNAME doesn't exist. Creating..."
+    multichain-util create $CHAINNAME --datadir=$CHAINDIR
+  else
+    echo "Chain with name $CHAINNAME already exists. Starting deamon..."
+  fi
 fi
 
 HOST=$CHAINNAME
@@ -27,4 +29,4 @@ fi
 
 echo "Host: $HOST"
 # Start the daemon
-multichaind $HOST --datadir=$CHAINDIR --rpcuser=$CHAINNAME --rpcpassword=$CHAINNAME --rpcport=$CHAINPORT --sendfreetransactions
+multichaind $HOST --datadir=$CHAINDIR --rpcuser=$CHAINNAME --rpcpassword=$CHAINNAME --rpcport=$RPCPORT --sendfreetransactions -autosubscribe="streams,assets"

@@ -1,4 +1,4 @@
-CHAINPORT=""
+RPCPORT=""
 CHAINNAME=""
 CHAINHOST=""
 
@@ -30,7 +30,7 @@ while [ "$1" != "" ]; do
             CHAINHOST=$VALUE
             ;;
         --port)
-            CHAINPORT=$VALUE
+            RPCPORT=$VALUE
             ;;
         *)
             echo "ERROR: unknown parameter \"$PARAM\""
@@ -43,7 +43,7 @@ done
 
 CHAINDIR="$(pwd)/temp"
 
-echo "port: $CHAINPORT"
-echo "name: $CHAINNAME"
-echo "host: $CHAINHOST"
-echo "dir:  $CHAINDIR"
+echo "rpc port: $RPCPORT"
+echo "name:     $CHAINNAME"
+echo "host:     $CHAINHOST"
+echo "dir:      $CHAINDIR"
