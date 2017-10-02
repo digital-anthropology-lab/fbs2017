@@ -1,0 +1,26 @@
+<h1>{{title}}</h1>
+
+<div>
+  <ul>
+    {{#each streams}}
+    <h2>{{key}}</h2>
+    <li>
+      <dl>
+        <dt>Description of task</dt>
+        <dd>{{dataStr.description}}</dd>
+        <dt>Number of owners required</dt>
+        <dd>{{dataStr.numowners}}</dd>
+        <dt>Available coins</dt>
+        <dd>{{dataStr.value}}</dd>
+        <dt>Current Owners</dt>
+        {{#each dataStr.owners as |owner|}}
+        <dd>{{owner}}</dd>
+        {{/each}}
+        <dt>Blocktime</dt>
+        <dd>{{blocktime}}</dd>
+      </dl>
+    </li>
+    {{/each}}
+  </ul>
+
+</div>

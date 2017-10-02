@@ -8,25 +8,16 @@ module.exports = function(io) {
 
   var ownAddress = ""
 
-  /* GET wallets */
   router.get('/create', function(req, res, next) {
-    mc.getLocalChainUsers()
-      .then(function(data){
-        var address = data.filter(function(item){ return item.ismine })
-        ownAddress = address[0].address
-        res.render('multiwallet', { title: "Multisignature Transaction", address: address[0]});
-        // res.send(JSON.stringify(address[0]))
-      })
-  });
-
-  function trackAddresses(addresses){
-    var promises = [];
-    for(var i = 0; i < addresses.length; i++){
-      console.log(addresses[i])
-      promises.push(mc.importAddressPromise({address: addresses[i], label : 'user:tracked', rescan: false}))
-    }
-    return Promise.all(promises)
-  }
+    var p1 = mc.getLocalChainUsers()
+    var p2 = mc.listAssetsPromise()
+    Promise.join(p1, p2).then(function(data){
+      console.log(data[1])
+      var address = data[0].filter(function(item){ return item.ismine })
+      // res.send(JSON.stringify(address[0]))
+      res.render('job-create', { title: "Multisignature Transaction", address: address[0], assets: data[1]});
+    })
+  })
 
   router.post('/create', function(req, res, next) {
 
@@ -51,7 +42,7 @@ module.exports = function(io) {
         return mc.publishFromPromise({
           from: addresses[0].address,
           stream: "jobs:new",
-          key: "job",
+          key: req.body.asset,
           data: new Buffer(encoded).toString("hex")
         })
       })
@@ -62,6 +53,27 @@ module.exports = function(io) {
       })
 
   });
+
+  // List all jobs or filter by key
+  router.get('/:key*?', function(req, res, next) {
+    var fn = req.params.key
+      ? mc.listStreamKeyItemsPromise
+      : mc.listStreamItemsPromise
+
+    fn({
+      stream: "jobs:new",
+      key: req.params.key,
+      verbose: true
+    }).then(function(data){
+      data.forEach(function(item, i){
+        data[i].dataStr = JSON.parse(Buffer.from(item.data, 'hex').toString())
+      })
+      res.render('jobs-available', { title: "Jobs Available", streams : data });
+      // res.send(JSON.stringify(data))
+    });
+
+  })
+
 
   io.on('connection', function(socket) {
     socket.on('address-track', function (msg) {

@@ -1,5 +1,10 @@
 <form class="" action="" method="post">
 
+  <select name="asset">
+    {{#each assets}}
+    <option {{#if @last}}selected="selected"{{/if}} value="{{name}}">{{name}} - {{issueqty}}</option>
+    {{/each}}
+  </select>
   <div class="">
     <label for="ownaddress">Your own address will be included</label><br/>
     <input type="text" name="ownaddress" disabled value="{{address.address}}">

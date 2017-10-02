@@ -23,11 +23,15 @@ var hbs = exphbs.create({
 var app = express();
 var io = app.io = require("socket.io")();
 
+// App wide view variables
+app.locals.port = process.env.PORT
+
+// routes
 var routes = require('./routes/index')(io);
 var assets = require('./routes/assets')(io);
 var users = require('./routes/users')(io);
 var streams = require('./routes/streams')(io);
-var multiwallet = require('./routes/multiwallet')(io);
+var jobs = require('./routes/jobs')(io);
 
 // view engine setup
 app.engine('.hbs', hbs.engine);
@@ -46,7 +50,7 @@ app.use('/', routes);
 app.use('/assets', assets);
 app.use('/users', users);
 app.use('/streams', streams);
-app.use('/multi-wallet', multiwallet);
+app.use('/jobs', jobs);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
