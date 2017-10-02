@@ -34,7 +34,7 @@ module.exports = function(io) {
       data.forEach(function(item, i){
         data[i].dataStr = Buffer.from(item.data, 'hex');
       })
-      // res.send(JSON.stringify(data))
+      // res.send(JSON.s  tringify(data))
       res.render('stream', { title: "Streams", streams : data });
     });
   });
